@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python convertCSVtoNC.py alt/csv/*.csv && python convertCSVtoNC.py bao/csv/*.csv && python convertCSVtoNC.py ber/csv/*.csv && python convertCSVtoNC.py brw/csv/*.csv && python convertCSVtoNC.py kwa/csv/*.csv && python convertCSVtoNC.py mlo/csv/*.csv && python convertCSVtoNC.py smo/csv/*.csv && python convertCSVtoNC.py spo/csv/*.csv && python convertCSVtoNC.py sum/csv/*.csv && python convertCSVtoNC.py thd/csv/*.csv &
