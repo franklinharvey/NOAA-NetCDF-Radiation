@@ -26,12 +26,13 @@ def openFile(filesToProcess):
             #print "Processing %s -- Request # %d / %d" % (base, counter, len(filesToProcess))
             if counter < 2:
                 df1 = createDataFrame(input_file, counter)
+                df1.loc[:,'testsite'] = output_name
             else:
                 df2 = createDataFrame(input_file, counter)
                 df1 = pd.concat([df1,df2])
         input_file.close()
     df1.replace(to_replace="-999.0",value="NaN", inplace=True)
-    df1.to_csv("large csv/" + output_name + '.csv')
+    df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
 
 def createDataFrame(input_file, counter):
     checkTime = time.clock()
