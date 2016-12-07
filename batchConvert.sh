@@ -1,2 +1,11 @@
 #!/usr/bin/env bash
-python convertCSVtoNC.py alt/csv/*.csv && python convertCSVtoNC.py bao/csv/*.csv && python convertCSVtoNC.py ber/csv/*.csv && python convertCSVtoNC.py brw/csv/*.csv && python convertCSVtoNC.py kwa/csv/*.csv && python convertCSVtoNC.py mlo/csv/*.csv && python convertCSVtoNC.py smo/csv/*.csv && python convertCSVtoNC.py spo/csv/*.csv && python convertCSVtoNC.py sum/csv/*.csv && python convertCSVtoNC.py thd/csv/*.csv &
+python convertCSVtoPD.py ../baselineRad/alt/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/bao/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/ber/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/brw/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/kwa/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/mlo/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/smo/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/spo/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/sum/csv/*.csv &&
+python convertCSVtoPD.py ../baselineRad/thd/csv/*.csv
