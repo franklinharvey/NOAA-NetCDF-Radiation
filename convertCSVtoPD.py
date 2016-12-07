@@ -18,10 +18,11 @@ def openFile(filesToProcess):
         base = os.path.splitext(basename(input))[0]
         if counter<1:
             output_name = base.split('_',1)[0]
-            print "There are %d files to precess in %r" % (len(filesToProcess), output_name)
+            sys.stdout.write("There are %d files to precess in %r\n" % (len(filesToProcess), output_name))
         with open(input, 'r') as input_file:
             counter+=1
-            print "Processing %s -- Request # %d / %d" % (base, counter, len(filesToProcess))
+            sys.stdout.write("Processing %s -- Request # %d / %d" % (base, counter, len(filesToProcess)))
+            sys.stdout.write('\n')
             if counter < 2:
                 df1 = createDataFrame(input_file, counter, output_name)
             else:
@@ -41,7 +42,7 @@ def createDataFrame(input_file, counter, output_name):
             index_col = ['Date'])
     df1.loc[:,'testsite'] = output_name
     #print "End DataFrame -- #%d" % counter
-    print "Ran for " + str(time.clock() - checkTime) + " Seconds"
+    #print "Ran for " + str(time.clock() - checkTime) + " Seconds"
     return df1
 
 def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, barLength = 100):
