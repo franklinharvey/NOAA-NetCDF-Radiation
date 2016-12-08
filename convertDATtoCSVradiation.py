@@ -9,7 +9,7 @@ def fileConvert(filesToProcess):
 	for input in filesToProcess:
 		Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith, check= False, False, False, False, False, False, False, False, False
 		base = os.path.splitext(basename(input))[0]
-		baseFolder = base.split('_',1)[0] + "/"
+		baseFolder = base.split('_',1)[0] + "/csv/"
 		print "Processing %s" % base
 		out_name = ("../baselineRad/" + baseFolder + base + ".csv")
 
