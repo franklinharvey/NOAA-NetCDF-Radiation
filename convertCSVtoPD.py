@@ -29,7 +29,7 @@ def openFile(filesToProcess):
                 df2 = createDataFrame(input_file, counter, output_name)
                 df1 = pd.concat([df1,df2])
         input_file.close()
-    df1.replace(to_replace="-999.00",value="NaN", inplace=True)
+    df1 = DataFrameReplaceValues(df1)
     df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
 
 def createDataFrame(input_file, counter, output_name):
@@ -40,12 +40,17 @@ def createDataFrame(input_file, counter, output_name):
             parse_dates = {'Date': [0,1,2,3,4]},
             date_parser = lambda x: pd.to_datetime(x, format="%Y %m %d %H %M"),
             index_col = ['Date'])
-    df1.loc[:,'testsite'] = output_name
+    df1.loc[:,'TestSite'] = output_name
     #print "End DataFrame -- #%d" % counter
     #print "Ran for " + str(time.clock() - checkTime) + " Seconds"
     return df1
 
-def printProgress (iteration, total, prefix = '', suffix = '', decimals = 1, barLength = 100):
+def DataFrameReplaceValues(df1):
+    df1.replace(to_replace="-999.00",value="NaN", inplace=True)
+    df1.replace(to_replace="",value="NaN", inplace=True)
+    return df1
+
+def printProgress(iteration, total, prefix = '', suffix = '', decimals = 1, barLength = 100):
     """
     Call in a loop to create terminal progress bar
     @params:
