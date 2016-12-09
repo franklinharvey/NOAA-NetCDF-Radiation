@@ -29,6 +29,8 @@ def openFile(filesToProcess):
         input_file.close()
     df1 = DataFrameReplaceValues(df1)
     df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
+    del df1
+    del df2
 
 def createDataFrame(input_file, output_name):
     checkTime = time.clock()
