@@ -5,14 +5,12 @@ import os
 import csv
 
 def fileConvert(filesToProcess):
-	headers = 'Year Month Day Hour Minute Direct Diffuse Diffuse2 D_Global D_IR U_Global U_IR Zenith'
 	for input in filesToProcess:
 		Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith, check= False, False, False, False, False, False, False, False, False
 		base = os.path.splitext(basename(input))[0]
 		baseFolder = base.split('_',1)[0] + "/csv/"
 		print "Processing %s" % base
 		out_name = ("../baselineRad/" + baseFolder + base + ".csv")
-
 		with open(input, 'r') as input_file:
 			with open(out_name, 'w') as output_file:
 				for count, line in enumerate(input_file):
@@ -41,7 +39,6 @@ def fileConvert(filesToProcess):
 							check=True
 						outLine = ",".join(line.split())
 						output_file.write(outLine + '\n')
-
 
 def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith):
 	output_file.write("Year,Month,Day,Hour,Minute,")
