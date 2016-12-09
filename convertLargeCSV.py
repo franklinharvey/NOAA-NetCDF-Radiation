@@ -22,13 +22,14 @@ def openFile(filesToProcess):
                 df1 = pd.concat([df1,df2])
         counter += 1
         input_file.close()
+    print "Working on the output"
     df1.to_csv('../baselineRad/large.csv')
 
 def createDataFrame(input_file, counter):
     checkTime = time.clock()
     df1 = pd.read_csv(input_file,
             sep = ",",
-            #nrows = 5000,
+            nrows = 5000000,
             index_col = ['TestSite','Date'])
     return df1
 
