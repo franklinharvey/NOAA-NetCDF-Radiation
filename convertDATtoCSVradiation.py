@@ -6,7 +6,7 @@ import csv
 
 def fileConvert(filesToProcess):
 	for input in filesToProcess:
-		Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith, check= False, False, False, False, False, False, False, False, False
+		Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith, check= False, False, False, False, False, False, False, False, False, False
 		base = os.path.splitext(basename(input))[0]
 		baseFolder = base.split('_',1)[0] + "/csv/"
 		print "Processing %s" % base
@@ -29,18 +29,20 @@ def fileConvert(filesToProcess):
 								D_IR = True
 							if word == "U_GLOBAL":
 								U_Global = True
+							if word =="U_GLOBAL2":
+								U_Global2 = True
 							if word == "U_IR":
 								U_IR = True
 							if word == "Zenith":
 								Zenith = True
 					else:
 						if check!=True:
-							writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith)
+							writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith)
 							check=True
 						outLine = ",".join(line.split())
 						output_file.write(outLine + '\n')
 
-def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_IR, Zenith):
+def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith):
 	output_file.write("Year,Month,Day,Hour,Minute,")
 	if Direct:
 		output_file.write("DIRECT,")
@@ -53,6 +55,8 @@ def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Globa
 	if D_IR:
 		output_file.write("D_IR,")
 	if U_Global:
+		output_file.write("U_GLOBAL,")
+	if U_Global2:
 		output_file.write("U_GLOBAL,")
 	if U_IR:
 		output_file.write("U_IR,")
