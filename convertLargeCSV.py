@@ -1,11 +1,9 @@
 from os.path import basename
 import os
 import netCDF4 as nc
-import time
 import sys
 import csv
 import pandas as pd
-import numpy as np
 
 def openFile(filesToProcess):
     df1 = pd.DataFrame()
@@ -26,10 +24,9 @@ def openFile(filesToProcess):
     df1.to_csv('../baselineRad/large.csv')
 
 def createDataFrame(input_file, counter):
-    checkTime = time.clock()
     df1 = pd.read_csv(input_file,
             sep = ",",
-            nrows = 5000000,
+            #nrows = 5000000,
             index_col = ['TestSite','Date'])
     return df1
 
