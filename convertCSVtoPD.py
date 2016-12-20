@@ -11,6 +11,7 @@ import pandas as pd
 def openFile(filesToProcess):
     counter = 0
     df1 = pd.DataFrame()
+    df2 = pd.DataFrame()
     length = len(filesToProcess)
     for input in filesToProcess:
         base = os.path.splitext(basename(input))[0]
