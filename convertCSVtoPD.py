@@ -28,7 +28,8 @@ def openFile(filesToProcess):
                 df1 = pd.concat([df1,df2])
         input_file.close()
     df1 = DataFrameReplaceValues(df1)
-    df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
+    #df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
+    writeNetCDF(df1)
     del df1
     del df2
 
@@ -47,11 +48,9 @@ def DataFrameReplaceValues(df1):
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
 
-def writeNetCDF(df1,output_name):
-    data = df1
-    locs = output_name
-    times = df1['Date']
-    out = xr.DataArray(data, coords=[time, locs], dims=['time','space'])
+def writeNetCDF(df1):
+    xds = xr.Dataset.from_dataframe(df1)
+    xds.to_netcdf('out.nc')
 
 if __name__ == '__main__':
     runTime = time.clock()

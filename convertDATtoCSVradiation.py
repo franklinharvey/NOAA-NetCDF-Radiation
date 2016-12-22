@@ -1,4 +1,3 @@
-# Import SYS for passing input files, os.path's baseline for parsing file names, os for
 import sys
 from os.path import basename
 import os

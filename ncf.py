@@ -1,55 +1,26 @@
-import scipy
-import numpy
-import netCDF4
-import csv
-from numpy import arange, dtype
+import pandas as pd
+import xarray as xr
+import sys
+from os.path import basename
+import os
 
-def str_to_float(str):
-    try:
-        number = float(str)
-    except ValueError:
-        number = -999.00
-    return number
+def openFile(filesToProcess):
+    counter = 0
+    for input in filesToProcess:
+        counter+=1
+        df1=pd.DataFrame()
+        base = os.path.splitext(basename(input))[0]
+        if counter < 2:
+            baseFolder = base.split('_',1)[0] + "/nc/"
+        out_name = ("../baselineRad/" + baseFolder + base + ".nc")
+        df1 = pd.read_csv(input,sep=",",
+            parse_dates = {"Date":[0,1,2,3,4]},
+            date_parser=lambda x:pd.to_datetime(x,format="%Y %m %d %H %M"),
+            index_col=['Date'])
+        df1.loc[:,"TestSite"]="ALT"
+        xds=xr.Dataset.from_dataframe(df1)
+        xds.to_netcdf(out_name)
 
-v1 = []
-v2 = []
-v3 = []
-v4 = []
-v5 = []
-v6 = []
-v7 = []
-v8 = []
-
-f = open('../baselineRad/alt/csv/alt_2004_09.csv').readlines()
-
-for line in f[1:]:
-    fields = line.split(',')
-    v1.append(fields[0]) #date
-    v2.append(str_to_float(fields[1]))#direct
-    v3.append(str_to_float(fields[2]))#diffuse
-    v4.append(str_to_float(fields[3]))#dglobal
-    v5.append(str_to_float(fields[4]))#d_ir
-    v6.append(str_to_float(fields[5]))#UGLOBAL
-    v7.append(str_to_float(fields[6]))#U_IR
-    v8.append(str_to_float(fields[7]))#ZENITH
-
-ncout = netCDF4.Dataset('out.nc', 'w')
-
-directOut = arange(v2, dtype='float32')
-#diffuseOut = arange(v3, dtype='float32')
-#zenithOut = arange(v4, dtype='float32')
-
-direct = ncout.createVariable('direct',dtype('float32').char)
-#diffuse = ncout.createVariable('diffuse',dtype('float32').char)
-#zenith = ncout.createVariable('zenith',dtype('float32').char)
-
-direct.units = 'irradiance'
-#diffuse.units = 'irradiance'
-#zenith.units = 'degrees'
-
-direct[:] = directOut
-#diffuse[:] = diffuseOut
-#zenith[:] = zenithOut
-
-ncout.close()
-f.close()
+if __name__ == '__main__':
+    openFile(sys.argv[1:])
+    print "done"
