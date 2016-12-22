@@ -158,3 +158,4 @@ ENV/
 # CSV and DAT
 *.csv
 *.dat
+*.nc
