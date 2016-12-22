@@ -19,7 +19,7 @@ def openFile(filesToProcess):
             index_col=['Date'])
         df1.loc[:,"TestSite"]="ALT"
         xds=xr.Dataset.from_dataframe(df1)
-        xds.to_netcdf(str(counter) + ".nc")
+        xds.to_netcdf(out_name)
 
 if __name__ == '__main__':
     openFile(sys.argv[1:])
