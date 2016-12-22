@@ -4,6 +4,7 @@ import netCDF4 as nc
 import sys
 import csv
 import pandas as pd
+import time
 
 def openFile(filesToProcess):
     df1 = pd.DataFrame()
@@ -17,9 +18,9 @@ def openFile(filesToProcess):
             if counter == 0:
                 df1 = createDataFrame(input_file)
             else:
+                del df2
                 df2 = createDataFrame(input_file)
                 df1 = pd.concat([df1,df2])
-                del df2
         counter += 1
         input_file.close()
     print "Working on the output"
@@ -30,9 +31,12 @@ def openFile(filesToProcess):
 def createDataFrame(input_file):
     df1 = pd.read_csv(input_file,
             sep = ",",
-            #nrows = 5000000,
+            nrows = 500000,
             index_col = ['TestSite','Date'])
     return df1
 
 if __name__ == '__main__':
+    checkTime = time.clock()
     openFile(sys.argv[1:])
+    runTime = time.clock() - checkTime
+    print runTime

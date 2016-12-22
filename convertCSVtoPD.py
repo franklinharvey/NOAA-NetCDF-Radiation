@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import time
+from time import clock
 import netCDF4 as nc
 import sys
 from os.path import basename
