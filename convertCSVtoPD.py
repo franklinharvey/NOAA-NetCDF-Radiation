@@ -1,11 +1,11 @@
-# -*- coding: utf-8 -*-
-from time import clock
+import time
 import netCDF4 as nc
 import sys
 from os.path import basename
 import os
 import csv
 import pandas as pd
+import xarray as xr
 
 def openFile(filesToProcess):
     counter = 0
@@ -46,6 +46,12 @@ def DataFrameReplaceValues(df1):
     df1.replace(to_replace="-999.00",value="NaN", inplace=True)
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
+
+def writeNetCDF(df1,output_name):
+    data = df1
+    locs = output_name
+    times = df1['Date']
+    out = xr.DataArray(data, coords=[time, locs], dims=['time','space'])
 
 if __name__ == '__main__':
     runTime = time.clock()
