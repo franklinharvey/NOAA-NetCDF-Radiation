@@ -36,7 +36,7 @@ My second issue is exemplified with these exerpts from the BAO directory:
 
 The files shown are "bao_1992_01.dat" (shown first) and "bao_2016_05.dat" (shown second). The headers change. Specifically, "DIFFUSE" changes to "DIFFUSE2". Additionally "BAO8_RAD U_GLOBAL" and "U_IR" are removed. The headers swap at the beginning of 2016.
 
-## How to convert ".dat" to ".csv"
+## Converting ".dat" to ".csv"
 
 I will take these steps: import file, parse headers, set flags for each possible header, write present headers, write data delimited by commas. Here we go:
 
