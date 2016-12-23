@@ -6,11 +6,11 @@ The files found in radiations FTP server (found at ftp://ftp.cmdl.noaa.gov in /g
                     ALT_RAD                                                
                                                    ALT_RAD2                
                      DIRECT        D_GLOBAL        U_GLOBAL          Zenith
-   Year Mn Dy Hr Mi        DIFFUSE2            D_IR            U_IR        
-   2004  9  1  0  1    1.04   79.40   78.67  303.58   61.06  310.95  85.142
-   2004  9  1  0  2    0.71   74.36   73.91  303.80   57.82  310.92  85.171
-   2004  9  1  0  3    0.67   71.80   71.64  304.25   56.84  310.98  85.199
-   2004  9  1  0  4    0.75   74.35   74.83  304.21   59.68  310.89  85.227
+    Year Mn Dy Hr Mi        DIFFUSE2            D_IR            U_IR        
+    2004  9  1  0  1    1.04   79.40   78.67  303.58   61.06  310.95  85.142
+    2004  9  1  0  2    0.71   74.36   73.91  303.80   57.82  310.92  85.171
+    2004  9  1  0  3    0.67   71.80   71.64  304.25   56.84  310.98  85.199
+    2004  9  1  0  4    0.75   74.35   74.83  304.21   59.68  310.89  85.227
 
 This is the first eight lines of the first file in the ALT directory ("alt_2004_09.dat"). The first issue is evident right away: the headers are not all on one line. In fact, some headers use two lines. This format is fairly legible to humans, but any program would have a hard time reading this. I decided the first thing to do would be to convert these files to CSV's (as most data libraries would certainly have readers for CSV's). There is an irregular amount of whitespace between columns, but I knew python wouldn't have had an issue with this.
 
@@ -19,20 +19,20 @@ My second issue is exemplified with these exerpts from the BAO directory:
                    BAO0_RAD                                                
                                                    BAO8_RAD                
                      DIRECT        D_GLOBAL        U_GLOBAL          Zenith
-   Year Mn Dy Hr Mi         DIFFUSE            D_IR            U_IR        
-   1992  1  1  0  3 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  93.734
-   1992  1  1  0  6 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  94.245
-   1992  1  1  0  9 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  94.758
-   1992  1  1  0 12 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  95.273
+    Year Mn Dy Hr Mi         DIFFUSE            D_IR            U_IR        
+    1992  1  1  0  3 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  93.734
+    1992  1  1  0  6 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  94.245
+    1992  1  1  0  9 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  94.758
+    1992  1  1  0 12 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  95.273
 
                     BAO_RAD                                
                                                            
                      DIRECT        D_GLOBAL          Zenith
-   Year Mn Dy Hr Mi        DIFFUSE2            D_IR        
-   2016  5  1  0  1    0.32  105.18  105.66  302.53  69.491
-   2016  5  1  0  2    0.37   97.06   96.79  306.56  69.681
-   2016  5  1  0  3    0.24   91.87   92.35  307.61  69.872
-   2016  5  1  0  4    0.00   93.20   94.02  306.54  70.062
+    Year Mn Dy Hr Mi        DIFFUSE2            D_IR        
+    2016  5  1  0  1    0.32  105.18  105.66  302.53  69.491
+    2016  5  1  0  2    0.37   97.06   96.79  306.56  69.681
+    2016  5  1  0  3    0.24   91.87   92.35  307.61  69.872
+    2016  5  1  0  4    0.00   93.20   94.02  306.54  70.062
 
 The files shown are "bao_1992_01.dat" (shown first) and "bao_2016_05.dat" (shown second). The headers change. Specifically, "DIFFUSE" changes to "DIFFUSE2". Additionally "BAO8_RAD U_GLOBAL" and "U_IR" are removed. The headers swap at the beginning of 2016.
 
