@@ -22,6 +22,8 @@ def openFile(filesToProcess):
         xds=xr.Dataset.from_dataframe(df1)
         xds.to_netcdf(out_name)
         print out_name
+        del df1
+        xds.close()
 
 if __name__ == '__main__':
     openFile(sys.argv[1:])
