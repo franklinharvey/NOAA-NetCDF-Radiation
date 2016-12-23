@@ -13,7 +13,8 @@ def openFile(filesToProcess):
         if counter < 2:
             baseFolder = base.split('_',1)[0] + "/nc/"
         out_name = ("../baselineRad/" + baseFolder + base + ".nc")
-        df1 = pd.read_csv(input,sep=",",
+        df1 = pd.read_csv(input,
+            sep=",",
             parse_dates = {"Date":[0,1,2,3,4]},
             date_parser=lambda x:pd.to_datetime(x,format="%Y %m %d %H %M"),
             index_col=['Date'])
