@@ -18,12 +18,20 @@ def openFile(filesToProcess):
             date_parser=lambda x:pd.to_datetime(x,format="%Y %m %d %H %M"),
             index_col=['Date'])
         df1.loc[:,"TestSite"]="ALT"
+
+        df1 = DataFrameReplaceValues(df1)
         xds=xr.Dataset.from_dataframe(df1)
         xds.to_netcdf(out_name)
         print base
         del df1
         xds.close()
         counter+=1
+
+
+def DataFrameReplaceValues(df1):
+    df1.replace(to_replace="-999.00",value="NaN", inplace=True)
+    df1.replace(r'\s+',"NaN", inplace=True, regex=True)
+    return df1
 
 if __name__ == '__main__':
     openFile(sys.argv[1:])
