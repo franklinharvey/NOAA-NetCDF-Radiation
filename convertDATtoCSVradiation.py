@@ -40,6 +40,8 @@ def fileConvert(filesToProcess):
 							check=True
 						outLine = ",".join(line.split())
 						output_file.write(outLine + '\n')
+		input_file.close()
+		output_file.close()
 
 def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith):
 	output_file.write("Year,Month,Day,Hour,Minute,")
