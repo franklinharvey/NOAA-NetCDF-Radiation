@@ -14,7 +14,7 @@ The files found in radiations FTP server (found at ftp://ftp.cmdl.noaa.gov in /g
 
 This is the first eight lines of the first file in the ALT directory ("alt_2004_09.dat"). The first issue is evident right away: the headers are not all on one line. In fact, some headers use two lines. This format is fairly legible to humans, but any program would have a hard time reading this. I decided the first thing to do would be to convert these files to CSV's (as most data libraries would certainly have readers for CSV's). There is an irregular amount of whitespace between columns, but I knew python wouldn't have had an issue with this.
 
-My second issue is exemplified with these exerpts from the BAO directory:
+My second issue is exemplified with these excerpts from the BAO directory:
 
                    BAO0_RAD                                                
                                                    BAO8_RAD                
@@ -26,7 +26,7 @@ My second issue is exemplified with these exerpts from the BAO directory:
     1992  1  1  0 12 -999.00 -999.00 -999.00 -999.00 -999.00 -999.00  95.273
 
                     BAO_RAD                                
-                                                           
+
                      DIRECT        D_GLOBAL          Zenith
     Year Mn Dy Hr Mi        DIFFUSE2            D_IR        
     2016  5  1  0  1    0.32  105.18  105.66  302.53  69.491
@@ -81,7 +81,7 @@ def writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Globa
         output_file.write("U_IR,")
     if Zenith:
         output_file.write("Zenith\n")
-        
+
 ### This is the function I use to actually write the headers into the CSV ###
 ```
 
@@ -117,20 +117,20 @@ with open(input, 'r') as input_file:
                     check=True
                 outLine = ",".join(line.split())
                 output_file.write(outLine + '\n')
-                        
+
 input_file.close()
 output_file.close()
 ```
 
 I'll try to summarize the above snippet:
 
-I open the .dat file and I create a .csv file to write to. I iterate through each line and check to see if I'm on a line before line 4 (python line reades are zero-based) because I know all the headers are in lines 0-3. The operation "line.split()" returns everything delimited by any whitespace, so this gets each word from the header. I then check for every header and set its flag to "true." If I've gone through the header lines I then check to see if I've already written my headers (this is what the check variable looks for). If I haven't, I write them (essentially only headers that have been found will be written). Then I split the remaining data by whitespace, delimit it by commas, and write it out.
+I open the .dat file and I create a .csv file to write to. I iterate through each line and check to see if I'm on a line before line 4 (python line reads are zero-based) because I know all the headers are in lines 0-3. The operation "line.split()" returns everything delimited by any whitespace, so this gets each word from the header. I then check for every header and set its flag to "true." If I've gone through the header lines I then check to see if I've already written my headers (this is what the check variable looks for). If I haven't, I write them (essentially only headers that have been found will be written). Then I split the remaining data by whitespace, delimit it by commas, and write it out.
 
 With not much more work, you can use this script to iterate through all DAT files and write out accordingly. However, a CSV file is not our goal, NetCDF is.
 
 ## Converting CSV to NetCDF
 
-A quick google search reveals that there are endless ways to do this, but I've decided to use xarray and pandas. My workflow was to make a dataframe from each CSV and then use that dataframe to export out to a NetCDF file. I chose this method because of how flexible a dataframe is. For instance, a dataframe could contain all the data from a testing location (even with the changing headers) or even all the readiation data in total. Here is what I did:
+A quick google search reveals that there are endless ways to do this, but I've decided to use xarray and pandas. My workflow was to make a dataframe from each CSV and then use that dataframe to export out to a NetCDF file. I chose this method because of how flexible a dataframe is. For instance, a dataframe could contain all the data from a testing location (even with the changing headers) or even all the radiation data in total. Here is what I did:
 
 
 ```python
@@ -155,4 +155,4 @@ xds=xr.Dataset.from_dataframe(df1)
 xds.to_netcdf(out_name)
 ```
 
-Essentially the file is seperated by commas, the date is parsed (and used as an index), and the testing location is added into a column. This should return a .nc file.
+Essentially the file is separated by commas, the date is parsed (and used as an index), and the testing location is added into a column. This should return a .nc file.
