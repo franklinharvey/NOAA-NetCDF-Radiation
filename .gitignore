@@ -159,3 +159,4 @@ ENV/
 *.csv
 *.dat
 *.nc
+*.ipynb
