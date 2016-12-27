@@ -5,7 +5,7 @@ import csv
 
 def fileConvert(filesToProcess):
 	for input in filesToProcess:
-		headers = {}
+		headers = []
 		Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith, check= False, False, False, False, False, False, False, False, False, False
 		base = os.path.splitext(basename(input))[0]
 		baseFolder = base.split('_',1)[0] + "/csv/"
@@ -18,50 +18,37 @@ def fileConvert(filesToProcess):
 						words = line.split()
 						for word in words:
 							if word == "DIRECT":
-								Direct = True
+								headers.append(word)
 							if word == "DIFFUSE":
-								Diffuse = True
+								headers.append(word)
 							if word == "DIFFUSE2":
-								Diffuse2 = True
+								headers.append(word)
 							if word == "D_GLOBAL":
-								D_Global = True
+								headers.append(word)
 							if word == "D_IR":
-								D_IR = True
+								headers.append(word)
 							if word == "U_GLOBAL":
-								U_Global = True
+								headers.append(word)
 							if word =="U_GLOBAL2":
-								U_Global2 = True
+								headers.append(word)
 							if word == "U_IR":
-								U_IR = True
+								headers.append(word)
 							if word == "Zenith":
-								Zenith = True
+								headers.append(word)
 					else:
 						if check!=True:
-							writeHeaders(output_file, Direct, Diffuse, Diffuse2, D_Global, D_IR, U_Global, U_Global2, U_IR, Zenith)
+							writeHeaders(headers,output_file)
 							check=True
 						outLine = ",".join(line.split())
 						output_file.write(outLine + '\n')
 
-def writeHeaders(**kwargs):
+def writeHeaders(headers,output_file):
 	output_file.write("Year,Month,Day,Hour,Minute,")
-	if Direct:
-		output_file.write("DIRECT,")
-	if Diffuse:
-		output_file.write("DIFFUSE,")
-	if Diffuse2:
-		output_file.write("DIFFUSE2,")
-	if D_Global:
-		output_file.write("D_GLOBAL,")
-	if D_IR:
-		output_file.write("D_IR,")
-	if U_Global:
-		output_file.write("U_GLOBAL,")
-	if U_Global2:
-		output_file.write("U_GLOBAL,")
-	if U_IR:
-		output_file.write("U_IR,")
-	if Zenith:
-		output_file.write("Zenith\n")
+	for word in headers:
+		output_file.write(word)
+		if word != "Zenith":
+			output_file.write(",")
+	output_file.write("\n")
 
 if __name__ == '__main__':
 	fileConvert(sys.argv[1:])
