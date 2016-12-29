@@ -1,12 +1,28 @@
 import sys
 
+class findWord:
+    name = ""
+    length = 0
+    count = 0
 
-def openFile(string):
-    testString = "                    ALT_RAD                                                \n                                                   ALT_RAD2                \n                     DIRECT        D_GLOBAL        U_GLOBAL          Zenith\n   Year Mn Dy Hr Mi        DIFFUSE2            D_IR            U_IR        "
-    letterCount = len(string) - len(string.lstrip())
-    print letterCount
+def openFile(input):
+    with open(input, 'r') as input_file:
+        count = 0
+        content = ""
+        find = "ALT_RAD2"
 
-
+        for count, line in enumerate(input_file):
+            fw = findWord
+            if count < 1:
+                print line
+                elements = line.split()
+                for element in elements:
+                    fw.name = element
+                    fw.length = len(element)
+                    for characterCount,character in enumerate(line):
+                        for j in range(0,wordLength):
+                            if character == list(find)[0]:
+                                print str(characterCount) + "FOUND"
 
 if __name__ == '__main__':
-    openFile(sys.argv[1])
+    openFile("alt_2004_09.dat")
