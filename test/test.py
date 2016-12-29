@@ -4,14 +4,20 @@ import copy
 class findWord:
     name = ""
     length = 0
-    count = 0
+    position = 0
     lineNumber = 0
 
 def printInstance(fw):
-    print "Name: %s | Length: %d | Count: %d | Line Number: %d"  % (fw.name,fw.length,fw.count,fw.lineNumber)
+    with open("out.txt", 'ab') as out_file:
+        string = "Name: %s | Length: %d | Position: %d | Line Number: %d\n"  % (fw.name,fw.length,fw.position,fw.lineNumber)
+        print string
+        out_file.write(string)
 
 def openFile(input):
     wordList = []
+    with open("out.txt", 'w') as out_file:
+        pass #clear output file
+
     instanceList = []
     with open(input, 'r') as input_file:
 
@@ -28,6 +34,7 @@ def openFile(input):
         printInstance(fw)
 
 def findWordFunc(word,input):
+    print word
     with open(input, 'r') as input_file:
         for count,line in enumerate(input_file):
             if count<4:
@@ -44,11 +51,11 @@ def findWordFunc(word,input):
                                 #print str(characterCount) + str(character) + str(list(find)[counter])
                                 if len(word)<3: #like "Mn" or "Dy"
                                     if counter == 1:
-                                        fw.count = characterCount-counter
+                                        fw.position = characterCount-counter
                                         return fw
                                 else:
                                     if counter == 3:
-                                        fw.count = characterCount-counter
+                                        fw.position = characterCount-counter
                                         return fw
                                 counter += 1
 
