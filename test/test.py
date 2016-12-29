@@ -21,16 +21,20 @@ def openFile(input):
                 for element in elements:
                     wordList.append(element)
 
-    print "----------DONE----------"
+    print "\n"
+    print "   ----------------------------------------------------------   "
+    print "------------------------------D-O-N-E------------------------------"
+    print "   ----------------------------------------------------------   "
+    print "\n"
 
     #for each word in the header, find its attributes
     for word in wordList:
         with open(input, 'r') as input_file:
             for count,line in enumerate(input_file):
                 if count<4:
-                    elements = line.split()
-                    for element in elements:
-                        if word == element:
+                    elements = line.split() #split the line into words
+                    for element in elements: #iterate through every word in a line
+                        if word == element: #
                             fw = findWord
                             fw.name = element
                             fw.length = len(element)
@@ -40,11 +44,12 @@ def openFile(input):
                                 if character == list(word)[counter]:
                                     #print str(characterCount) + str(character) + str(list(find)[counter])
                                     counter +=1
-                                    if len(word)==2: #like "Mn" or "Dy"
+                                    if len(word)<3: #like "Mn" or "Dy"
                                         if counter == 1:
                                             fw.count = characterCount-2
                                             printInstance(fw)
                                             instanceList.append(fw)
+                                            counter = 0
                                             break
 
                                     else:
@@ -52,6 +57,7 @@ def openFile(input):
                                             fw.count = characterCount-2
                                             printInstance(fw)
                                             instanceList.append(fw)
+                                            counter = 0
                                             break
         #print wordList
         # for instance in instanceList:

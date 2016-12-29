@@ -1,3 +1,3 @@
 import sys
 
-print len(sys.argv[1])
+print len("   Year Mn Dy Hr Mi        DIFFUSE2            ")
