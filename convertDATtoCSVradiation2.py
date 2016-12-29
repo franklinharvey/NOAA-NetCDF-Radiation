@@ -43,6 +43,7 @@ def fileConvert(filesToProcess):
 						output_file.write(outLine + '\n')
 
 def writeHeaders(headers,output_file):
+	headers.sort()
 	output_file.write("Year,Month,Day,Hour,Minute,")
 	for word in headers:
 		output_file.write(word)
