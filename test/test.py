@@ -6,6 +6,9 @@ class findWord:
     count = 0
     lineNumber = 0
 
+def printInstance(fw):
+    print "Name: %s | Length: %d | Count: %d | Line Number: %d"  % (fw.name,fw.length,fw.count,fw.lineNumber)
+
 def openFile(input):
     wordList = []
     instanceList = []
@@ -18,37 +21,44 @@ def openFile(input):
                 for element in elements:
                     wordList.append(element)
 
-    print "DONE"
+    print "----------DONE----------"
 
     #for each word in the header, find its attributes
     for word in wordList:
         with open(input, 'r') as input_file:
             for count,line in enumerate(input_file):
-                #print count,word
                 if count<4:
                     elements = line.split()
                     for element in elements:
-                        fw = findWord
-                        fw.name = element
-                        print element
-                        fw.length = len(element)
-                        fw.lineNumber = count
-                        counter = 0
-                        for characterCount,character in enumerate(line):
-                            if character == list(word)[counter]:
-                                #print str(characterCount) + str(character) + str(list(find)[counter])
-                                counter +=1
-                                if counter == 3:
-                                    fw.count = characterCount-2
-                                    #print str(fw.count) + "WOW"
-                                    instanceList.append(fw)
-                                    counter = 0
+                        if word == element:
+                            fw = findWord
+                            fw.name = element
+                            fw.length = len(element)
+                            fw.lineNumber = count
+                            counter = 0
+                            for characterCount,character in enumerate(line):
+                                if character == list(word)[counter]:
+                                    #print str(characterCount) + str(character) + str(list(find)[counter])
+                                    counter +=1
+                                    if len(word)==2: #like "Mn" or "Dy"
+                                        if counter == 1:
+                                            fw.count = characterCount-2
+                                            printInstance(fw)
+                                            instanceList.append(fw)
+                                            break
+
+                                    else:
+                                        if counter == 3:
+                                            fw.count = characterCount-2
+                                            printInstance(fw)
+                                            instanceList.append(fw)
+                                            break
         #print wordList
-        for instance in instanceList:
-            print instance.name
-            print instance.length
-            print instance.count
-            print instance.lineNumber
+        # for instance in instanceList:
+        #     print instance.name
+        #     print instance.length
+        #     print instance.count
+        #     print instance.lineNumber
 
 
 if __name__ == '__main__':
