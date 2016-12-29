@@ -1,4 +1,5 @@
 import sys
+import copy
 
 class findWord:
     name = ""
@@ -46,9 +47,9 @@ def openFile(input):
                                     counter +=1
                                     if len(word)<3: #like "Mn" or "Dy"
                                         if counter == 1:
-                                            fw.count = characterCount-2
+                                            fw.count = characterCount
                                             printInstance(fw)
-                                            instanceList.append(fw)
+                                            instanceList.append(copy.deepcopy(fw))
                                             counter = 0
                                             break
 
@@ -56,15 +57,9 @@ def openFile(input):
                                         if counter == 3:
                                             fw.count = characterCount-2
                                             printInstance(fw)
-                                            instanceList.append(fw)
+                                            instanceList.append(copy.deepcopy(fw))
                                             counter = 0
                                             break
-        #print wordList
-        # for instance in instanceList:
-        #     print instance.name
-        #     print instance.length
-        #     print instance.count
-        #     print instance.lineNumber
 
 
 if __name__ == '__main__':
