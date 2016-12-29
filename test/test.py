@@ -9,9 +9,9 @@ class findWord:
 
 def printInstance(fw):
     with open("out.txt", 'ab') as out_file:
-        string = "Name: %s | Length: %d | Position: %d | Line Number: %d\n"  % (fw.name,fw.length,fw.position,fw.lineNumber)
+        string = "Name: %s | Length: %d | Position: %d | Line Number: %d"  % (fw.name,fw.length,fw.position,fw.lineNumber)
         print string
-        out_file.write(string)
+        out_file.write(string + "\n")
 
 def openFile(input):
     wordList = []
