@@ -1,5 +1,4 @@
 import sys
-import copy
 
 class findWord:
     name = ""
@@ -8,17 +7,13 @@ class findWord:
     lineNumber = 0
 
 def printInstance(fw):
-    with open("out.txt", 'ab') as out_file:
-        string = "Name: %s | Length: %d | Position: %d | Line Number: %d"  % (fw.name,fw.length,fw.position,fw.lineNumber)
-        print string
-        out_file.write(string + "\n")
+    string = "Name: %s | Length: %d | Position: %d | Line Number: %d"  % (fw.name,fw.length,fw.position,fw.lineNumber)
+    print string
 
 def openFile(input):
-    wordList = []
-    with open("out.txt", 'w') as out_file:
-        pass #clear output file
+    wordList = [] #list of all words found in header
+    instanceList = [] #list of all word objects
 
-    instanceList = []
     with open(input, 'r') as input_file:
 
         #populate list of words in header
@@ -47,23 +42,21 @@ def findWordFunc(word,input):
                         counter = 0
                         for characterCount,character in enumerate(line):
                             if character == list(word)[counter]:
-                                print character, characterCount
-                                #print str(characterCount) + str(character) + str(list(find)[counter])
                                 if len(word)<3: #like "Mn" or "Dy"
                                     if counter == 1:
-                                        #print character
                                         fw.position = characterCount-counter
                                         return fw
                                 else:
                                     if counter == 3:
-                                        #print character
                                         fw.position = characterCount-counter
                                         return fw
                                 counter += 1
+
+                            #if non consecutive, reset
                             elif counter > 0:
                                 counter = 0
                                 pass
 
 
 if __name__ == '__main__':
-    openFile("alt_2004_09.dat")
+    openFile(sys.argv[1])
