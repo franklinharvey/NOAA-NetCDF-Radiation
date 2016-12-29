@@ -10,7 +10,8 @@ def fileConvert(filesToProcess):
 		base = os.path.splitext(basename(input))[0]
 		baseFolder = base.split('_',1)[0] + "/csv/"
 		print "Processing %s" % base
-		out_name = ("../baselineRad/" + baseFolder + base + ".csv")
+		#out_name = ("../baselineRad/" + baseFolder + base + ".csv")
+		out_name = "TEST.csv"
 		with open(input, 'r') as input_file:
 			with open(out_name, 'w') as output_file:
 				for count, line in enumerate(input_file):

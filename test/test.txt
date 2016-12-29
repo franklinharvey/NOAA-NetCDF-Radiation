@@ -1,0 +1,4 @@
+                    ALT_RAD                                                
+                                                   ALT_RAD2                
+                     DIRECT        D_GLOBAL        U_GLOBAL          Zenith
+   Year Mn Dy Hr Mi        DIFFUSE2            D_IR            U_IR        
