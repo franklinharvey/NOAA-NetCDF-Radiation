@@ -34,7 +34,6 @@ def openFile(input):
         printInstance(fw)
 
 def findWordFunc(word,input):
-    print word
     with open(input, 'r') as input_file:
         for count,line in enumerate(input_file):
             if count<4:
@@ -48,16 +47,22 @@ def findWordFunc(word,input):
                         counter = 0
                         for characterCount,character in enumerate(line):
                             if character == list(word)[counter]:
+                                print character, characterCount
                                 #print str(characterCount) + str(character) + str(list(find)[counter])
                                 if len(word)<3: #like "Mn" or "Dy"
                                     if counter == 1:
+                                        #print character
                                         fw.position = characterCount-counter
                                         return fw
                                 else:
                                     if counter == 3:
+                                        #print character
                                         fw.position = characterCount-counter
                                         return fw
                                 counter += 1
+                            elif counter > 0:
+                                counter = 0
+                                pass
 
 
 if __name__ == '__main__':
