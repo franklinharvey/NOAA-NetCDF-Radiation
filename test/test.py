@@ -15,7 +15,6 @@ def openFile(input):
     instanceList = [] #list of all word objects
 
     with open(input, 'r') as input_file:
-
         #populate list of words in header
         for count, line in enumerate(input_file):
             if count < 4:
@@ -24,9 +23,15 @@ def openFile(input):
                     wordList.append(element)
 
     #for each word in the header, find its attributes
+    index = 0
     for word in wordList:
         fw = findWordFunc(word,input)
         printInstance(fw)
+        instanceList[index].name = fw.name
+        instanceList[index].position = fw.position
+        index += 1
+    for instance in instanceList:
+        print instance
 
 def findWordFunc(word,input):
     with open(input, 'r') as input_file:
