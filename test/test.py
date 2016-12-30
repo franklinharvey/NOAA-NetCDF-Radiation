@@ -1,6 +1,7 @@
 """
 This file accepts .dat files with offset headers such as the one found here(http://bit.ly/2ipTrbn). It's purpose is to return a sorted list of headers as they appear left to right regardless of line numbers. This assumes all headers appear on lines 0-3 (assuming the first line as line 0).
 """
+
 import sys
 import copy
 
@@ -19,8 +20,9 @@ class findWord(object):
             print k + ": " + str(self.variables[k])
 
 def openFile(input):
-    wordList = [] #list of all words found in header
-    instanceList = [] #list of all word objects
+    """Initial function; this is called to create a list of all the headers"""
+    wordList = []
+    instanceList = []
 
     with open(input, 'r') as input_file:
         #populate list of words in header
@@ -33,10 +35,13 @@ def openFile(input):
     #for each word in the header, find its attributes
     for word in wordList:
         fw = findWordFunc(word,input)
-        fw.print_info()
         instanceList.append(copy.deepcopy(fw))
 
+    for instance in instanceList:
+        instance.print_info()
+
 def findWordFunc(word,input):
+    """Compares the list of all the headers to the first 4 lines of a file and determines how many characters appear before each header. This is used to determine left-to-right order."""
     with open(input, 'r') as input_file:
         for count,line in enumerate(input_file):
             if count<4:
@@ -60,10 +65,10 @@ def findWordFunc(word,input):
                                         return fw1
                                 counter += 1
 
-                            #if non consecutive, reset
                             elif counter > 0:
                                 counter = 0
                                 pass
+                            #if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
 if __name__ == '__main__':
     openFile(sys.argv[1])
