@@ -32,14 +32,14 @@ def getInstanceList(input):
     instanceList = []
 
     with open(input, 'r') as input_file:
-        #populate list of words in header
+        # populate list of words in header
         for count, line in enumerate(input_file):
             if count < 4:
                 elements = line.split()
                 for element in elements:
                     wordList.append(element)
 
-    #for each word in the header, find its attributes
+    # for each word in the header, find its attributes
     for word in wordList:
         fw = getInstance(word,input)
         instanceList.append(copy.deepcopy(fw))
@@ -52,8 +52,8 @@ def getInstance(word,input):
     with open(input, 'r') as input_file:
         for count,line in enumerate(input_file):
             if count<4:
-                elements = line.split() #split the line into words
-                for element in elements: #iterate through every word in a line
+                elements = line.split() # split the line into words
+                for element in elements: # iterate through every word in a line
                     if word == element:
                         fw1 = findWord()
                         fw1.set_variable('name', element)
@@ -75,7 +75,7 @@ def getInstance(word,input):
                             elif counter > 0:
                                 counter = 0
                                 pass
-                            #if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
+                            # if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
 def sortInstanceList(instanceList):
     """Returns a sorted list of all the headers."""
@@ -93,17 +93,17 @@ def getCSVHeaders(instanceList):
         temp = instance.get_variable('name')
         if count!=len(instanceList)-1:
             csvHeaderString += temp + ","
-        else:
+        else: # the last element does not need a comma
             csvHeaderString += temp
             return csvHeaderString
 
 def filterInstanceList(instanceList):
+    """Returns a list of headers with words like "ALT_RAD2" filtered out."""
     filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"]
     for count,instance in enumerate(instanceList):
         for word in filterList:
             if instance.get_variable('name') == word:
                 del instanceList[count]
-
     return instanceList
 
 if __name__ == '__main__':
