@@ -1,4 +1,5 @@
 import sys
+import copy
 
 class findWord(object):
     def __init__(self, **kwargs):
@@ -13,15 +14,10 @@ class findWord(object):
     def print_info(self):
         for k in self.variables:
             print k + ": " + str(self.variables[k])
-
-    # name = ""
-    # length = 0
-    # position = 0
-    # lineNumber = 0
+        print "\n"
 
 def printInstance(fw):
-    string = "Name: %s | Length: %d | Position: %d | Line Number: %d"  % (fw.name,fw.length,fw.position,fw.lineNumber)
-    print string
+    fw.print_info()
 
 def openFile(input):
     wordList = [] #list of all words found in header
@@ -36,15 +32,10 @@ def openFile(input):
                     wordList.append(element)
 
     #for each word in the header, find its attributes
-    index = 0
     for word in wordList:
         fw = findWordFunc(word,input)
         printInstance(fw)
-        instanceList[index].name = fw.name
-        instanceList[index].position = fw.position
-        index += 1
-    for instance in instanceList:
-        print instance
+        instanceList.append(copy.deepcopy(fw))
 
 def findWordFunc(word,input):
     with open(input, 'r') as input_file:
@@ -53,22 +44,21 @@ def findWordFunc(word,input):
                 elements = line.split() #split the line into words
                 for element in elements: #iterate through every word in a line
                     if word == element:
-                        fw = findWord
-                        fw.set_variable('name',element)
-                        fw.set_variable('length', len(element))
-                        fw.set_variable('lineNumber',count)
-                        fw.print_info
+                        fw1 = findWord()
+                        fw1.set_variable('name',element)
+                        fw1.set_variable('length', len(element))
+                        fw1.set_variable('lineNumber',count)
                         counter = 0
                         for characterCount,character in enumerate(line):
                             if character == list(word)[counter]:
                                 if len(word)<3: #like "Mn" or "Dy"
                                     if counter == 1:
-                                        fw.position = characterCount-counter
-                                        return fw
+                                        fw1.set_variable('position',characterCount-counter)
+                                        return fw1
                                 else:
                                     if counter == 3:
-                                        fw.position = characterCount-counter
-                                        return fw
+                                        fw1.set_variable('position',characterCount-counter)
+                                        return fw1
                                 counter += 1
 
                             #if non consecutive, reset
