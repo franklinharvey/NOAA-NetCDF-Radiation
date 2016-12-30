@@ -106,8 +106,4 @@ def filterInstanceList(instanceList):
                 del instanceList[count]
     return instanceList
 
-if __name__ == '__main__':
-    instanceList = getInstanceList(sys.argv[1])
-    sortedInstanceList = sortInstanceList(instanceList)
-    sortedInstanceList = filterInstanceList(sortedInstanceList)
-    printList(sortedInstanceList)
+#if __name__ == '__main__':
