@@ -8,7 +8,7 @@ def openFile(filesToProcess):
     for input in filesToProcess:
         df1=pd.DataFrame()
         base = os.path.splitext(basename(input))[0]
-        out_name = ("../baselineRad/largeNC/" + base + ".nc")
+        out_name = ("../../baselineRad/largeNC/" + base + ".nc")
         df1 = createDataFrame(input)
         xds=xr.Dataset.from_dataframe(df1)
         xds.to_netcdf(out_name)

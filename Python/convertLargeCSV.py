@@ -23,7 +23,7 @@ def openFile(filesToProcess):
         counter += 1
         input_file.close()
     #print "Working on the output"
-    df1.to_csv('../baselineRad/large.csv')
+    df1.to_csv('../../baselineRad/large.csv')
     del df1
     del df2
 

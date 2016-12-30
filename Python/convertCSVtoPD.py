@@ -28,7 +28,7 @@ def openFile(filesToProcess):
                 df1 = pd.concat([df1,df2])
         input_file.close()
     df1 = DataFrameReplaceValues(df1)
-    df1.to_csv("../baselineRad/large csv/" + output_name + '.csv')
+    df1.to_csv("../../baselineRad/large csv/" + output_name + '.csv')
     writeNetCDF(df1)
     del df1
     del df2

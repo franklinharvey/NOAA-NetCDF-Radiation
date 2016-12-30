@@ -28,7 +28,6 @@ def openFile(filesToProcess):
         xds.close()
         counter+=1
 
-
 def DataFrameReplaceValues(df1):
     df1.replace(to_replace="-999.00",value="NaN", inplace=True)
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
