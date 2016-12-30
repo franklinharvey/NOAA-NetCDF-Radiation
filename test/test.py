@@ -37,8 +37,7 @@ def openFile(input):
         fw = findWordFunc(word,input)
         instanceList.append(copy.deepcopy(fw))
 
-    for instance in instanceList:
-        instance.print_info()
+    return instanceList
 
 def findWordFunc(word,input):
     """Compares the list of all the headers to the first 4 lines of a file and determines how many characters appear before each header. This is used to determine left-to-right order."""
@@ -70,5 +69,14 @@ def findWordFunc(word,input):
                                 pass
                             #if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
+def sortInstanceList(instanceList):
+    return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
+
+def printList(sortedInstanceList):
+    for instance in sortedInstanceList:
+        print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
+
 if __name__ == '__main__':
-    openFile(sys.argv[1])
+    instanceList = openFile(sys.argv[1])
+    sortedInstanceList = sortInstanceList(instanceList)
+    printList(sortedInstanceList)
