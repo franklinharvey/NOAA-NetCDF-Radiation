@@ -1,3 +1,6 @@
+"""
+This file accepts .dat files with offset headers such as the one found here(http://bit.ly/2ipTrbn). It's purpose is to return a sorted list of headers as they appear left to right regardless of line numbers. This assumes all headers appear on lines 0-3 (assuming the first line as line 0).
+"""
 import sys
 import copy
 
@@ -14,10 +17,6 @@ class findWord(object):
     def print_info(self):
         for k in self.variables:
             print k + ": " + str(self.variables[k])
-        print "\n"
-
-def printInstance(fw):
-    fw.print_info()
 
 def openFile(input):
     wordList = [] #list of all words found in header
@@ -34,7 +33,7 @@ def openFile(input):
     #for each word in the header, find its attributes
     for word in wordList:
         fw = findWordFunc(word,input)
-        printInstance(fw)
+        fw.print_info()
         instanceList.append(copy.deepcopy(fw))
 
 def findWordFunc(word,input):
