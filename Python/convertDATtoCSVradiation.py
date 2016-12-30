@@ -12,10 +12,11 @@ def getHeaders(input):
 	return datParse.getCSVHeaders(instanceList)
 
 def fileMGMT(filesToProcess):
-	if len(filesToProcess)>1:
+	"""Initial function, used to seperate list of files from single file input."""
+	if len(filesToProcess)>1: # if list of 2 or more files
 		for input in filesToProcess:
 			fileConvert(input)
-	else:
+	else: # if just single file
 		fileConvert(filesToProcess[0])
 
 def fileConvert(input):
@@ -25,7 +26,7 @@ def fileConvert(input):
 	headers = getHeaders(input)
 
 	print "Processing %s" % base
-	out_name = ("../baselineRad/" + baseFolder + base + ".csv")
+	out_name = ("../../baselineRad/" + baseFolder + base + ".csv")
 
 	with open(input, 'r') as input_file:
 		with open(out_name, 'w') as output_file:
