@@ -1,10 +1,23 @@
 import sys
 
-class findWord:
-    name = ""
-    length = 0
-    position = 0
-    lineNumber = 0
+class findWord(object):
+    def __init__(self, **kwargs):
+        self.variables = kwargs
+
+    def set_variable(self, k, v):
+        self.variables[k]=v
+
+    def get_variable(self, k):
+        return self.variables.get(k, None)
+
+    def print_info(self):
+        for k in self.variables:
+            print k + ": " + str(self.variables[k])
+
+    # name = ""
+    # length = 0
+    # position = 0
+    # lineNumber = 0
 
 def printInstance(fw):
     string = "Name: %s | Length: %d | Position: %d | Line Number: %d"  % (fw.name,fw.length,fw.position,fw.lineNumber)
@@ -41,9 +54,10 @@ def findWordFunc(word,input):
                 for element in elements: #iterate through every word in a line
                     if word == element:
                         fw = findWord
-                        fw.name = element
-                        fw.length = len(element)
-                        fw.lineNumber = count
+                        fw.set_variable('name',element)
+                        fw.set_variable('length', len(element))
+                        fw.set_variable('lineNumber',count)
+                        fw.print_info
                         counter = 0
                         for characterCount,character in enumerate(line):
                             if character == list(word)[counter]:
@@ -61,7 +75,6 @@ def findWordFunc(word,input):
                             elif counter > 0:
                                 counter = 0
                                 pass
-
 
 if __name__ == '__main__':
     openFile(sys.argv[1])
