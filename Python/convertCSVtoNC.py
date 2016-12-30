@@ -9,15 +9,16 @@ def openFile(filesToProcess):
     for input in filesToProcess:
         base = os.path.splitext(basename(input))[0]
         if counter == 0:
-            baseFolder = base.split('_',1)[0] + "/nc/"
+            testSite = base.split('_',1)[0]
+            baseFolder = testSite + "/nc/"
         df1=pd.DataFrame()
-        out_name = ("../baselineRad/" + baseFolder + base + ".nc")
+        out_name = ("../../baselineRad/" + baseFolder + base + ".nc")
         df1 = pd.read_csv(input,
             sep=",",
             parse_dates = {"Date":[0,1,2,3,4]},
             date_parser=lambda x:pd.to_datetime(x,format="%Y %m %d %H %M"),
             index_col=['Date'])
-        df1.loc[:,"TestSite"]="ALT"
+        df1.loc[:,"TestSite"] = testSite
 
         df1 = DataFrameReplaceValues(df1)
         xds=xr.Dataset.from_dataframe(df1)
