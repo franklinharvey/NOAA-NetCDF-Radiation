@@ -19,8 +19,15 @@ class findWord(object):
         for k in self.variables:
             print k + ": " + str(self.variables[k])
 
-def openFile(input):
-    """Initial function; this is called to create a list of all the headers"""
+def getInstanceList(input):
+    """
+    Initial function; this is called to create a list of all the headers.
+
+    Argument: Total .dat file which needs parsing of headers.
+    Return: Unsorted list of instances.
+
+    The output will not be filtered, it will include all words found in the first four lines of the input.
+    """
     wordList = []
     instanceList = []
 
@@ -34,13 +41,14 @@ def openFile(input):
 
     #for each word in the header, find its attributes
     for word in wordList:
-        fw = findWordFunc(word,input)
+        fw = getInstance(word,input)
         instanceList.append(copy.deepcopy(fw))
 
     return instanceList
 
-def findWordFunc(word,input):
+def getInstance(word,input):
     """Compares the list of all the headers to the first 4 lines of a file and determines how many characters appear before each header. This is used to determine left-to-right order."""
+    # Called by getInstanceList, do not access directly.
     with open(input, 'r') as input_file:
         for count,line in enumerate(input_file):
             if count<4:
@@ -74,7 +82,7 @@ def sortInstanceList(instanceList):
     return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
 
 def printList(instanceList):
-    """Prints a list of headers."""
+    """Prints a list of headers with its position. Used for testing."""
     for instance in instanceList:
         print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
 
@@ -89,8 +97,17 @@ def getCSVHeaders(instanceList):
             csvHeaderString += temp
             return csvHeaderString
 
+def filterInstanceList(instanceList):
+    filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"]
+    for count,instance in enumerate(instanceList):
+        for word in filterList:
+            if instance.get_variable('name') == word:
+                del instanceList[count]
+
+    return instanceList
+
 if __name__ == '__main__':
-    instanceList = openFile(sys.argv[1])
+    instanceList = getInstanceList(sys.argv[1])
     sortedInstanceList = sortInstanceList(instanceList)
-    #printList(sortedInstanceList)
-    print getCSVHeaders(sortedInstanceList)
+    sortedInstanceList = filterInstanceList(sortedInstanceList)
+    printList(sortedInstanceList)
