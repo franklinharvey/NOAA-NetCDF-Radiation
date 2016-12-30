@@ -48,9 +48,9 @@ def findWordFunc(word,input):
                 for element in elements: #iterate through every word in a line
                     if word == element:
                         fw1 = findWord()
-                        fw1.set_variable('name',element)
+                        fw1.set_variable('name', element)
                         fw1.set_variable('length', len(element))
-                        fw1.set_variable('lineNumber',count)
+                        fw1.set_variable('lineNumber', count)
                         counter = 0
                         for characterCount,character in enumerate(line):
                             if character == list(word)[counter]:
@@ -70,13 +70,27 @@ def findWordFunc(word,input):
                             #if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
 def sortInstanceList(instanceList):
+    """Returns a sorted list of all the headers."""
     return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
 
-def printList(sortedInstanceList):
-    for instance in sortedInstanceList:
+def printList(instanceList):
+    """Prints a list of headers."""
+    for instance in instanceList:
         print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
+
+def getCSVHeaders(instanceList):
+    """Returns a string formatted for .csv files"""
+    csvHeaderString = ""
+    for count,instance in enumerate(instanceList):
+        temp = instance.get_variable('name')
+        if count!=len(instanceList)-1:
+            csvHeaderString += temp + ","
+        else:
+            csvHeaderString += temp
+            return csvHeaderString
 
 if __name__ == '__main__':
     instanceList = openFile(sys.argv[1])
     sortedInstanceList = sortInstanceList(instanceList)
-    printList(sortedInstanceList)
+    #printList(sortedInstanceList)
+    print getCSVHeaders(sortedInstanceList)
