@@ -22,11 +22,13 @@ def fileConvert(input):
     masterDF = pd.concat([masterDF,tempDF])
     return masterDF
 
-def getTestSite(base):
-    return = base.split('_',1)[0]
-
 def getBaseName(input):
+    """Returns the name of the file without the file extension"""
     return os.path.splitext(basename(input))[0]
+
+def getTestSite(base):
+    """Returns the name of the testing location"""
+    return base.split('_',1)[0]
 
 def openFile(filesToProcess):
     counter = 0
@@ -54,22 +56,24 @@ def openFile(filesToProcess):
     del df1
     del df2
 
-def createDataFrame(input_file, output_name):
+def createDataFrame(input_file, testSite):
     checkTime = time.clock()
     df1 = pd.read_csv(input_file,
             sep = ",",
             parse_dates = {'Date': [0,1,2,3,4]},
             date_parser = lambda x: pd.to_datetime(x, format="%Y %m %d %H %M"),
             index_col = ['Date'])
-    df1.loc[:,'testSite'] = output_name
+    df1.loc[:,'TestSite'] = testSite
     return df1
 
 def DataFrameReplaceValues(df1):
+    """Checks for values and returns a DataFrame with "NaN" values in their place"""
     df1.replace(to_replace="-999.00",value="NaN", inplace=True)
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
 
 def writeNetCDF(df1,out_name):
+    """Writes a NetCDF4 file using the CSV input"""
     xds = xr.Dataset.from_dataframe(df1)
     xds.to_netcdf(out_name + '.nc')
 
