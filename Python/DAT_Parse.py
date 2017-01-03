@@ -5,7 +5,7 @@ This file accepts .dat files with offset headers such as the one found here(http
 import sys
 import copy
 
-class findWord(object):
+class FindWord(object):
     def __init__(self, **kwargs):
         self.variables = kwargs
 
@@ -19,7 +19,7 @@ class findWord(object):
         for k in self.variables:
             print k + ": " + str(self.variables[k])
 
-def getInstanceList(input):
+def get_instancelist(input):
     """
     Initial function; this is called to create a list of all the headers.
 
@@ -41,12 +41,12 @@ def getInstanceList(input):
 
     # for each word in the header, find its attributes
     for word in wordList:
-        fw = getInstance(word,input)
+        fw = get_instance(word,input)
         instanceList.append(copy.deepcopy(fw))
 
     return instanceList
 
-def getInstance(word,input):
+def get_instance(word,input):
     """Compares the list of all the headers to the first 4 lines of a file and determines how many characters appear before each header. This is used to determine left-to-right order."""
     # Called by getInstanceList, do not access directly.
     with open(input, 'r') as input_file:
@@ -55,7 +55,7 @@ def getInstance(word,input):
                 elements = line.split() # split the line into words
                 for element in elements: # iterate through every word in a line
                     if word == element:
-                        fw1 = findWord()
+                        fw1 = FindWord()
                         fw1.set_variable('name', element)
                         fw1.set_variable('length', len(element))
                         fw1.set_variable('lineNumber', count)
@@ -77,16 +77,16 @@ def getInstance(word,input):
                                 pass
                             # if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
-def sortInstanceList(instanceList):
+def sort_instancelist(instanceList):
     """Returns a sorted list of all the headers."""
     return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
 
-def printList(instanceList):
+def print_list(instanceList):
     """Prints a list of headers with its position. Used for testing."""
     for instance in instanceList:
         print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
 
-def getCSVHeaders(instanceList):
+def get_csvheaders(instanceList):
     """Returns a string formatted for .csv files"""
     csvHeaderString = ""
     for count,instance in enumerate(instanceList):
@@ -97,7 +97,7 @@ def getCSVHeaders(instanceList):
             csvHeaderString += temp
             return csvHeaderString
 
-def filterInstanceList(instanceList):
+def filter_instancelist(instanceList):
     """Returns a list of headers with words like "ALT_RAD2" filtered out."""
     filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"] # so far all known bad headers
     for count,instance in enumerate(instanceList):

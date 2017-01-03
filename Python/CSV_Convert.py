@@ -5,7 +5,7 @@ import csv
 import pandas as pd
 import xarray as xr
 
-def fileConvert(filesToProcess):
+def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
 	if len(filesToProcess)>1: # if list of 2 or more files
         masterDF = pd.DataFrame()
@@ -16,15 +16,15 @@ def fileConvert(filesToProcess):
 	else: # if just single file
 		masterDF = createDataFrame(filesToProcess[0])
 
-def getBaseName(input):
+def get_basename(input):
     """Returns the name of the file without the file extension"""
     return os.path.splitext(basename(input))[0]
 
-def getTestSite(base):
+def get_testsite(base):
     """Returns the name of the testing location"""
     return base.split('_',1)[0]
 
-def createDataFrame(input_file):
+def csv_to_df(input_file):
     """Returns a pandas DataFrame from a .csv file"""
     testSite = getTestSite(input_file)
     df1 = pd.read_csv(input_file,
@@ -35,13 +35,13 @@ def createDataFrame(input_file):
     df1.loc[:,'TestSite'] = testSite
     return df1
 
-def DataFrameReplaceValues(df1):
+def replace_nan(df1):
     """Checks for values and returns a DataFrame with "NaN" values in their place"""
     df1.replace(to_replace="-999.00",value="NaN", inplace=True)
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
 
-def writeNetCDF(df1,out_name):
+def df_to_nc(df1,out_name):
     """Writes a NetCDF4 file from a DataFrame input"""
     xds = xr.Dataset.from_dataframe(df1)
     xds.to_netcdf(out_name + '.nc')
