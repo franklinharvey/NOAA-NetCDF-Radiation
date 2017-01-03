@@ -38,25 +38,24 @@ def openFile(filesToProcess):
     for input in filesToProcess:
         base = os.path.splitext(basename(input))[0]
         if counter<1:
-            testSite = base.split('_',1)[0]
             sys.stdout.write("There are %d files to precess in %r\n" % (len(filesToProcess), output_name))
         with open(input, 'r') as input_file:
             counter+=1
             sys.stdout.write("Processing %s -- Request # %d / %d" % (base, counter, len(filesToProcess)))
             sys.stdout.write('\n')
             if counter < 2:
-                df1 = createDataFrame(input_file, testSite)
+                df1 = createDataFrame(input_file)
             else:
-                df2 = createDataFrame(input_file, testSite)
+                df2 = createDataFrame(input_file)
                 df1 = pd.concat([df1,df2])
-        input_file.close()
     df1 = DataFrameReplaceValues(df1)
-    df1.to_csv("../../baselineRad/large csv/" + testSite + '.csv')
     writeNetCDF(df1,base)
     del df1
     del df2
 
-def createDataFrame(input_file, testSite):
+def createDataFrame(input_file):
+    """Returns a pandas DataFrame from a .csv file"""
+    testSite = getTestSite(input_file)
     checkTime = time.clock()
     df1 = pd.read_csv(input_file,
             sep = ",",
