@@ -1,15 +1,12 @@
+"""
+This module should accept .dat files and return .csv files.
+"""
+
 import sys
 from os.path import basename
 import os
 import csv
 import dat_parse
-
-def get_headers(input):
-	"""Parses headers in .dat file and returns them comma seperated."""
-	instanceList = datParse.get_instancelist(input)
-	instanceList = datParse.sort_instancelist(instanceList)
-	instanceList = datParse.filter_instancelist(instanceList)
-	return datParse.get_csvheaders(instanceList)
 
 def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
@@ -18,6 +15,13 @@ def file_mgmt(filesToProcess):
 			fileConvert(input)
 	else: # if just single file
 		fileConvert(filesToProcess[0])
+
+def get_headers(input):
+	"""Parses headers in .dat file and returns them comma seperated."""
+	instanceList = datParse.get_instancelist(input)
+	instanceList = datParse.sort_instancelist(instanceList)
+	instanceList = datParse.filter_instancelist(instanceList)
+	return datParse.get_csvheaders(instanceList)
 
 def dat_to_csv(input):
 	"""Converts .dat to .csv file"""

@@ -77,15 +77,6 @@ def get_instance(word,input):
                                 pass
                             # if non consecutive, reset. This is very important because otherwise words can be found early. For instance, "U_IR" can be found long before all four characters of "U_IR" are found consecutively. "U" can be found in "DIFFUSE" and then "_IR" can be picked up from "D_IR". Besides, consecutive letters is a better practice for finding matches.
 
-def sort_instancelist(instanceList):
-    """Returns a sorted list of all the headers."""
-    return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
-
-def print_list(instanceList):
-    """Prints a list of headers with its position. Used for testing."""
-    for instance in instanceList:
-        print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
-
 def get_csvheaders(instanceList):
     """Returns a string formatted for .csv files"""
     csvHeaderString = ""
@@ -97,6 +88,15 @@ def get_csvheaders(instanceList):
             csvHeaderString += temp
             return csvHeaderString
 
+def sort_instancelist(instanceList):
+    """Returns a sorted list of all the headers."""
+    return sorted(instanceList, key=lambda instance: instance.get_variable('position'))
+
+def print_list(instanceList):
+    """Prints a list of headers with its position. Used for testing."""
+    for instance in instanceList:
+        print "%s: %d" % (instance.get_variable('name'),instance.get_variable('position'))
+
 def filter_instancelist(instanceList):
     """Returns a list of headers with words like "ALT_RAD2" filtered out."""
     filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"] # so far all known bad headers
@@ -105,5 +105,3 @@ def filter_instancelist(instanceList):
             if instance.get_variable('name') == word:
                 del instanceList[count]
     return instanceList
-
-#if __name__ == '__main__':

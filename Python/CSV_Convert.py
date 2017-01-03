@@ -1,3 +1,7 @@
+"""
+This module should accept .csv files and return .nc files.
+"""
+
 import sys
 from os.path import basename
 import os
@@ -35,16 +39,16 @@ def csv_to_df(input_file):
     df1.loc[:,'TestSite'] = testSite
     return df1
 
+def df_to_nc(df1,out_name):
+    """Writes a NetCDF4 file from a DataFrame input"""
+    xds = xr.Dataset.from_dataframe(df1)
+    xds.to_netcdf(out_name + '.nc')
+
 def replace_nan(df1):
     """Checks for values and returns a DataFrame with "NaN" values in their place"""
     df1.replace(to_replace="-999.00",value="NaN", inplace=True)
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
-
-def df_to_nc(df1,out_name):
-    """Writes a NetCDF4 file from a DataFrame input"""
-    xds = xr.Dataset.from_dataframe(df1)
-    xds.to_netcdf(out_name + '.nc')
 
 if __name__ == '__main__':
     fileConvert(sys.argv[1:])
