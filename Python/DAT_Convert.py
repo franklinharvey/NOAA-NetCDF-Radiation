@@ -2,7 +2,7 @@ import sys
 from os.path import basename
 import os
 import csv
-import datParse
+import DAT_Parse
 
 def getHeaders(input):
 	"""Parses headers in .dat file and returns them comma seperated."""

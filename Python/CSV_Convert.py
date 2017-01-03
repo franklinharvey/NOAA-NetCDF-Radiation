@@ -1,5 +1,4 @@
 import time
-import netCDF4 as nc
 import sys
 from os.path import basename
 import os
@@ -19,9 +18,15 @@ def fileConvert(input):
     base = os.path.splitext(basename(input))[0]
     masterDF = pd.DataFrame()
     with open(input, 'r') as input_file:
-        tempDF = createDataFrame(input_file, output_name)
+        tempDF = createDataFrame(input_file, testSite)
     masterDF = pd.concat([masterDF,tempDF])
+    return masterDF
 
+def getTestSite(base):
+    return = base.split('_',1)[0]
+
+def getBaseName(input):
+    return os.path.splitext(basename(input))[0]
 
 def openFile(filesToProcess):
     counter = 0
@@ -31,21 +36,21 @@ def openFile(filesToProcess):
     for input in filesToProcess:
         base = os.path.splitext(basename(input))[0]
         if counter<1:
-            output_name = base.split('_',1)[0]
+            testSite = base.split('_',1)[0]
             sys.stdout.write("There are %d files to precess in %r\n" % (len(filesToProcess), output_name))
         with open(input, 'r') as input_file:
             counter+=1
             sys.stdout.write("Processing %s -- Request # %d / %d" % (base, counter, len(filesToProcess)))
             sys.stdout.write('\n')
             if counter < 2:
-                df1 = createDataFrame(input_file, output_name)
+                df1 = createDataFrame(input_file, testSite)
             else:
-                df2 = createDataFrame(input_file, output_name)
+                df2 = createDataFrame(input_file, testSite)
                 df1 = pd.concat([df1,df2])
         input_file.close()
     df1 = DataFrameReplaceValues(df1)
-    df1.to_csv("../../baselineRad/large csv/" + output_name + '.csv')
-    writeNetCDF(df1)
+    df1.to_csv("../../baselineRad/large csv/" + testSite + '.csv')
+    writeNetCDF(df1,base)
     del df1
     del df2
 
@@ -56,7 +61,7 @@ def createDataFrame(input_file, output_name):
             parse_dates = {'Date': [0,1,2,3,4]},
             date_parser = lambda x: pd.to_datetime(x, format="%Y %m %d %H %M"),
             index_col = ['Date'])
-    df1.loc[:,'TestSite'] = output_name
+    df1.loc[:,'testSite'] = output_name
     return df1
 
 def DataFrameReplaceValues(df1):
@@ -64,9 +69,9 @@ def DataFrameReplaceValues(df1):
     df1.replace(r'\s+',"NaN", inplace=True, regex=True)
     return df1
 
-def writeNetCDF(df1):
+def writeNetCDF(df1,out_name):
     xds = xr.Dataset.from_dataframe(df1)
-    xds.to_netcdf('out.nc')
+    xds.to_netcdf(out_name + '.nc')
 
 if __name__ == '__main__':
     runTime = time.clock()
