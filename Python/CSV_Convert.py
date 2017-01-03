@@ -15,6 +15,14 @@ def fileMGMT(filesToProcess):
 	else: # if just single file
 		fileConvert(filesToProcess[0])
 
+def fileConvert(input):
+    base = os.path.splitext(basename(input))[0]
+    masterDF = pd.DataFrame()
+    with open(input, 'r') as input_file:
+        tempDF = createDataFrame(input_file, output_name)
+    masterDF = pd.concat([masterDF,tempDF])
+
+
 def openFile(filesToProcess):
     counter = 0
     df1 = pd.DataFrame()
