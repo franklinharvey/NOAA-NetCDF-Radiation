@@ -2,16 +2,16 @@ import sys
 from os.path import basename
 import os
 import csv
-import DAT_Parse
+import dat_parse
 
-def getHeaders(input):
+def get_headers(input):
 	"""Parses headers in .dat file and returns them comma seperated."""
-	instanceList = datParse.getInstanceList(input)
-	instanceList = datParse.sortInstanceList(instanceList)
-	instanceList = datParse.filterInstanceList(instanceList)
-	return datParse.getCSVHeaders(instanceList)
+	instanceList = datParse.get_instancelist(input)
+	instanceList = datParse.sort_instancelist(instanceList)
+	instanceList = datParse.filter_instancelist(instanceList)
+	return datParse.get_csvheaders(instanceList)
 
-def fileMGMT(filesToProcess):
+def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
 	if len(filesToProcess)>1: # if list of 2 or more files
 		for input in filesToProcess:
@@ -19,11 +19,11 @@ def fileMGMT(filesToProcess):
 	else: # if just single file
 		fileConvert(filesToProcess[0])
 
-def fileConvert(input):
+def dat_to_csv(input):
 	"""Converts .dat to .csv file"""
 	base = os.path.splitext(basename(input))[0]
 	baseFolder = base.split('_',1)[0] + "/csv/"
-	headers = getHeaders(input)
+	headers = get_headers(input)
 
 	print "Processing %s" % base
 	out_name = ("../../baselineRad/" + baseFolder + base + ".csv")

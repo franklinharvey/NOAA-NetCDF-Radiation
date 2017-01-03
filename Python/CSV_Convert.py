@@ -11,10 +11,10 @@ def file_mgmt(filesToProcess):
         masterDF = pd.DataFrame()
         for input in filesToProcess:
             with open(input, 'r') as input_file:
-                tempDF = createDataFrame(input_file)
+                tempDF = csv_to_df(input_file)
             masterDF = pd.concat([masterDF,tempDF])
 	else: # if just single file
-		masterDF = createDataFrame(filesToProcess[0])
+		masterDF = csv_to_df(filesToProcess[0])
 
 def get_basename(input):
     """Returns the name of the file without the file extension"""
