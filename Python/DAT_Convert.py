@@ -12,16 +12,16 @@ def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
 	if len(filesToProcess)>1: # if list of 2 or more files
 		for input in filesToProcess:
-			fileConvert(input)
+			dat_to_csv(input)
 	else: # if just single file
-		fileConvert(filesToProcess[0])
+		dat_to_csv(filesToProcess[0])
 
 def get_headers(input):
 	"""Parses headers in .dat file and returns them comma seperated."""
-	instanceList = datParse.get_instancelist(input)
-	instanceList = datParse.sort_instancelist(instanceList)
-	instanceList = datParse.filter_instancelist(instanceList)
-	return datParse.get_csvheaders(instanceList)
+	instanceList = dat_parse.get_instancelist(input)
+	instanceList = dat_parse.sort_instancelist(instanceList)
+	instanceList = dat_parse.filter_instancelist(instanceList)
+	return dat_parse.get_csvheaders(instanceList)
 
 def dat_to_csv(input):
 	"""Converts .dat to .csv file"""
@@ -43,4 +43,4 @@ def dat_to_csv(input):
 					output_file.write(outLine + '\n')
 
 if __name__ == '__main__':
-	fileMGMT(sys.argv[1:])
+	file_mgmt(sys.argv[1:])
