@@ -34,7 +34,8 @@ def get_outname(input,change=False):
 	if change:
 		pass
 	else:
-		out_name=str("../../baselineRad/" + get_testsite(input) + "/nc/" + get_basename(input))
+		out_name="../../baselineRad/" + str(get_testsite(input)) + "/nc/" + str(get_basename(input))
+	return out_name
 
 def csv_to_df(input):
 	"""Returns a pandas DataFrame from a .csv file"""
