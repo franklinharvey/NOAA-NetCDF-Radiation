@@ -12,38 +12,46 @@ import xarray as xr
 def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
 	if len(filesToProcess)>1: # if list of 2 or more files
-        masterDF = pd.DataFrame()
-        for input in filesToProcess:
-            with open(input, 'r') as input_file:
-                tempDF = csv_to_df(input_file)
-            masterDF = pd.concat([masterDF,tempDF])
-		replace_nan(masterDF)
+		for input in filesToProcess:
+			df=csv_to_df(input)
+			df = replace_nan(df)
+			out_name=get_outname(input)
+			df_to_nc(df,out_name)
 	else: # if just single file
-		masterDF = csv_to_df(filesToProcess[0])
-		replace_nan(masterDF)
+		df = csv_to_df(filesToProcess[0])
+	return df
 
 def get_basename(input):
-    """Returns the name of the file without the file extension"""
-    return os.path.splitext(basename(input))[0]
+	"""Returns the name of the file without the file extension"""
+	return os.path.splitext(basename(input))[0]
 
-def get_testsite(base):
-    """Returns the name of the testing location"""
-    return base.split('_',1)[0]
+def get_testsite(input):
+	"""Returns the name of the testing location"""
+	base = get_basename(input)
+	return base.split('_',1)[0]
 
-def csv_to_df(input_file):
-    """Returns a pandas DataFrame from a .csv file"""
-    df1 = pd.read_csv(input_file,
-            sep = ",",
-            parse_dates = {'Date': [0,1,2,3,4]},
-            date_parser = lambda x: pd.to_datetime(x, format="%Y %m %d %H %M"),
-            index_col = ['Date'])
-    df1.loc[:,'TestSite'] = get_testsite(get_basename(input_file))
-    return df1
+def get_outname(input,change=False):
+	if change:
+		pass
+	else:
+		out_name=str("../../baselineRad/" + get_testsite(input) + "/nc/" + get_basename(input))
+
+def csv_to_df(input):
+	"""Returns a pandas DataFrame from a .csv file"""
+	with open(input, 'r') as input_file:
+		df1 = pd.read_csv(input_file,
+	            sep = ",",
+	            parse_dates = {'Date': [0,1,2,3,4]},
+	            date_parser = lambda x: pd.to_datetime(x, format="%Y %m %d %H %M"),
+	            index_col = ['Date'])
+		df1.loc[:,'TestSite'] = get_testsite(input)
+	return df1
 
 def df_to_nc(df1,out_name):
-    """Writes a NetCDF4 file from a DataFrame input"""
-    xds = xr.Dataset.from_dataframe(df1)
-    xds.to_netcdf(out_name + '.nc')
+	"""Writes a NetCDF4 file from a DataFrame input"""
+	print out_name
+	xds = xr.Dataset.from_dataframe(df1)
+	xds.to_netcdf(str(out_name) + ".nc")
 
 def replace_nan(df1):
     """Checks for values and returns a DataFrame with "NaN" values in their place"""
@@ -51,4 +59,4 @@ def replace_nan(df1):
     return df1
 
 if __name__ == '__main__':
-    fileConvert(sys.argv[1:])
+	df = file_mgmt(sys.argv[1:])
