@@ -15,32 +15,31 @@ def file_mgmt(filesToProcess):
 		for input in filesToProcess:
 			df = csv_to_df(input)
 			df = replace_nan(df)
-			out_name = get_outname(input)
+			out_name = get_output_filename(input)
 			df_to_nc(df,out_name)
 	else: # if just single file
 		df = csv_to_df(filesToProcess[0])
 	return df
 
-def get_basename(input):
+def get_filename(input):
 	"""Returns the name of the file without the file extension"""
 	return os.path.splitext(basename(input))[0]
 
 def get_testsite(input):
 	"""Returns the name of the testing location"""
-	base = get_basename(input)
+	base = get_filename(input)
 	return base.split('_',1)[0]
 
-def get_outname(input,change=False):
+def get_output_filename(input,change=False):
 	if change:
 		pass
 	else:
-		out_name="../../baselineRad/" + str(get_testsite(input)) + "/nc/" + str(get_basename(input))
+		out_name="../../baselineRad/" + str(get_testsite(input)) + "/nc/" + str(get_filename(input))
 	return out_name
 
 def csv_to_df(input):
 	"""Returns a pandas DataFrame from a .csv file"""
-
-	print "Processing %s" % get_basename(input)
+	print "Converting %s into NetCDF4" % get_filename(input)
 	with open(input, 'r') as input_file:
 		df1 = pd.read_csv(input_file,
 	            sep = ",",
