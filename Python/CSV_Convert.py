@@ -13,9 +13,9 @@ def file_mgmt(filesToProcess):
 	"""Initial function, used to seperate list of files from single file input."""
 	if len(filesToProcess)>1: # if list of 2 or more files
 		for input in filesToProcess:
-			df=csv_to_df(input)
+			df = csv_to_df(input)
 			df = replace_nan(df)
-			out_name=get_outname(input)
+			out_name = get_outname(input)
 			df_to_nc(df,out_name)
 	else: # if just single file
 		df = csv_to_df(filesToProcess[0])

@@ -39,8 +39,11 @@ def dat_to_csv(input):
 				if count < 4:
 					pass
 				else:
-					outLine = ",".join(line.split())
-					output_file.write(outLine + '\n')
+					if line.split()=="":
+						pass
+					else:
+						outLine = ",".join(line.split())
+						output_file.write(outLine + '\n')
 
 if __name__ == '__main__':
 	file_mgmt(sys.argv[1:])
