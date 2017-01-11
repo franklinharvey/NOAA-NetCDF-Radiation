@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
-bash batchConvertDATtoCSV.sh &&
-bash batchConvertCSVtoPD.sh &&
+bash _dat_convert.sh &&
+bash _csv_convert.sh &&
