@@ -39,7 +39,7 @@ def dat_to_csv(input):
 				if count < 4:
 					pass
 				else:
-					if line.split()=="":
+					if line.split()[0]=='\x1a':
 						pass
 					else:
 						outLine = ",".join(line.split())

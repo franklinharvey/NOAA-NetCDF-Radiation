@@ -39,6 +39,8 @@ def get_outname(input,change=False):
 
 def csv_to_df(input):
 	"""Returns a pandas DataFrame from a .csv file"""
+
+	print "Processing %s" % get_basename(input)
 	with open(input, 'r') as input_file:
 		df1 = pd.read_csv(input_file,
 	            sep = ",",
@@ -50,7 +52,6 @@ def csv_to_df(input):
 
 def df_to_nc(df1,out_name):
 	"""Writes a NetCDF4 file from a DataFrame input"""
-	print out_name
 	xds = xr.Dataset.from_dataframe(df1)
 	xds.to_netcdf(str(out_name) + ".nc")
 
