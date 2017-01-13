@@ -1,0 +1,65 @@
+>>> import netCDF4 as nc
+>>> foo=nc.Dataset('alt_2004_09.nc','r+')
+>>> foo.Conventions='CF-1.6'
+>>> foo.title = 'NOAA/ESRL/GMD/GRAD Radiation Archive - Alert Observatory'
+>>> foo.institution = 'National Oceanic and Atmospheric Administration (NOAA) - David Skaggs Research Center - Boulder, CO'
+>>> foo.source = 'https://github.com/franklinharvey/NOAA-NetCDF-Radiation'
+>>> foo.comment="Converted from .dat file in the radiation group's FTP server"
+>>> from netCDF4 import Dataset
+>>> foo.variables
+OrderedDict([(u'Date', <type 'netCDF4._netCDF4.Variable'>
+int64 Date(Date)
+    units: minutes since 2004-09-01 00:01:00
+    calendar: proleptic_gregorian
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of -9223372036854775806 used
+), (u'DIRECT', <type 'netCDF4._netCDF4.Variable'>
+float64 DIRECT(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'DIFFUSE2', <type 'netCDF4._netCDF4.Variable'>
+float64 DIFFUSE2(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'D_GLOBAL', <type 'netCDF4._netCDF4.Variable'>
+float64 D_GLOBAL(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'D_IR', <type 'netCDF4._netCDF4.Variable'>
+float64 D_IR(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'U_GLOBAL', <type 'netCDF4._netCDF4.Variable'>
+float64 U_GLOBAL(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'U_IR', <type 'netCDF4._netCDF4.Variable'>
+float64 U_IR(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'Zenith', <type 'netCDF4._netCDF4.Variable'>
+float64 Zenith(Date)
+unlimited dimensions:
+current shape = (43200,)
+filling on, default _FillValue of 9.96920996839e+36 used
+), (u'TestSite', <type 'netCDF4._netCDF4.Variable'>
+|S1 TestSite(Date, string3)
+unlimited dimensions:
+current shape = (43200, 3)
+filling on, default _FillValue of  used
+)])
+>>> foo.ncattrs()
+[u'Conventions', u'title', u'institution', u'source', u'comment']
+>>> foo.dimensions
+OrderedDict([(u'Date', <type 'netCDF4._netCDF4.Dimension'>: name = 'Date', size = 43200
+), (u'string3', <type 'netCDF4._netCDF4.Dimension'>: name = 'string3', size = 3
+)])
+>>> foo.close()
+>>> quit()
