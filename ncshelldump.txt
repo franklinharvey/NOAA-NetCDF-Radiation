@@ -6,6 +6,7 @@
 >>> foo.source = 'https://github.com/franklinharvey/NOAA-NetCDF-Radiation'
 >>> foo.comment="Converted from .dat file in the radiation group's FTP server"
 >>> from netCDF4 import Dataset
+
 >>> foo.variables
 OrderedDict([(u'Date', <type 'netCDF4._netCDF4.Variable'>
 int64 Date(Date)
@@ -55,6 +56,7 @@ unlimited dimensions:
 current shape = (43200, 3)
 filling on, default _FillValue of  used
 )])
+
 >>> foo.ncattrs()
 [u'Conventions', u'title', u'institution', u'source', u'comment']
 >>> foo.dimensions
