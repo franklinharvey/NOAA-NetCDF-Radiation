@@ -5,6 +5,7 @@ import netCDF4 as nc
 
 def file_mgmt(filesToProcess):
     for input in filesToProcess:
+        print input
         foo=nc.Dataset(input,'r+')
         foo.Conventions='CF-1.6'
         foo.title = 'NOAA/ESRL/GMD/GRAD Radiation Archive - %s' % (get_testsite(input))
