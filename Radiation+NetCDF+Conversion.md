@@ -1,7 +1,7 @@
 
 # Converting Radiation's ".dat" files to a NetCDF file
 
-The files found in radiations FTP server (found at ftp://ftp.cmdl.noaa.gov in /g-rad/baseline/) are organized by test sites like ALT (Alert Observatory in Alert, Nunavut, Canada; a BSRN site) and BRW (Barrow Observatory in Barrow, Alaska, United States; a baseline GMD observatory). There are six total baseline observatories and four BSRN sites. Each testing location is a directory holding a zip files, one per month. Each zip file, when unzipped, contains a single ".dat" file:
+The files found in radiations FTP server (found at ftp://ftp.cmdl.noaa.gov in /g-rad/baseline/) are organized by test sites like ALT (Alert Observatory in Alert, Nunavut, Canada; a BSRN site) and BRW (Barrow Observatory in Barrow, Alaska, United States; a baseline GMD observatory). There are six total baseline observatories and four BSRN sites. Each testing location is a directory holding `.zip` files, one per month. Each `.zip` file, when unzipped, contains a single `.dat` file:
 
                         ALT_RAD                                                
                                                        ALT_RAD2                
