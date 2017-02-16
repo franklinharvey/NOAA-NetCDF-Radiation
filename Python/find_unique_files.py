@@ -23,7 +23,10 @@ def file_mgmt(filesToProcess):
                     rownum+=1
                 else:
                     break
-    for count,file in enumerate(fileList):
-        print "%s: %s" % (file,headerList[count])
+
+    with open("filetype.txt",'w') as output_file:
+        output_file.write("List of file types:\n")
+        for count,file in enumerate(fileList):
+            output_file.write("Example File: %s || Headers: %s\n" % (file,headerList[count]))
 if __name__ == '__main__':
 	df = file_mgmt(sys.argv[1:])
