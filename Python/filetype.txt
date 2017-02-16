@@ -1,11 +1,8 @@
 List of file types:
 Example File: alt_2004_09 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE2', 'D_GLOBAL', 'D_IR', 'U_GLOBAL', 'U_IR', 'Zenith']
-Example File: bao_1992_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE', 'D_GLOBAL', 'D_IR', 'BAO8_RAD', 'U_GLOBAL', 'U_IR', 'Zenith']
-Example File: bao_2000_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE2', 'D_GLOBAL', 'D_IR', 'BAO8_RAD', 'U_GLOBAL', 'U_IR', 'Zenith']
-Example File: bao_2014_03 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE2', 'D_GLOBAL', 'D_IR', 'BAO_RAD2', 'U_GLOBAL', 'U_IR', 'Zenith']
+Example File: bao_1992_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE', 'D_GLOBAL', 'D_IR', 'U_GLOBAL', 'U_IR', 'Zenith']
 Example File: bao_2016_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE2', 'D_GLOBAL', 'D_IR', 'Zenith']
 Example File: ber_1992_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE', 'D_GLOBAL', 'D_IR', 'Zenith']
-Example File: brw_1976_01 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE', 'D_GLOBAL', 'D_IR', 'U_GLOBAL', 'U_IR', 'Zenith']
 Example File: spo_1998_12 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE', 'D_GLOBAL', 'D_IR', 'U_GLOBAL2', 'U_IR', 'Zenith']
 Example File: spo_2003_04 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'DIRECT', 'DIFFUSE2', 'D_GLOBAL', 'D_IR', 'U_GLOBAL2', 'U_IR', 'Zenith']
 Example File: sum_2013_09 || Headers: ['Year', 'Mn', 'Dy', 'Hr', 'Mi', 'D_GLOBAL', 'D_IR', 'U_GLOBAL', 'U_IR', 'Zenith']
