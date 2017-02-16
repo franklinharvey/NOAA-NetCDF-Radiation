@@ -24,9 +24,9 @@ def file_mgmt(filesToProcess):
                 else:
                     break
 
-    with open("filetype.txt",'w') as output_file:
-        output_file.write("List of file types:\n")
+    with open("filetype.csv",'w') as output_file:
+        output_file.write("Example File,Headers\n")
         for count,file in enumerate(fileList):
-            output_file.write("Example File: %s || Headers: %s\n" % (file,headerList[count]))
+            output_file.write("%s,%s\n" % (file,headerList[count]))
 if __name__ == '__main__':
 	df = file_mgmt(sys.argv[1:])
