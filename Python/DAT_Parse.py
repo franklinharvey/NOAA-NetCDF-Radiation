@@ -99,7 +99,7 @@ def print_list(instanceList):
 
 def filter_instancelist(instanceList):
     """Returns a list of headers with words like "ALT_RAD2" filtered out."""
-    filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"] # so far all known bad headers
+    filterList = ["ALT_RAD","ALT_RAD2","BAO0_RAD","BAO_RAD","BAO_RAD2","BAO8_RAD","BER_RAD","BRW_RAD","BRW_RAD2","KWA_RAD","MLO_RAD","SMO_RAD","SPO_RAD","SUM_RAD2","THD_RAD"] # so far all known bad headers
     for count,instance in enumerate(instanceList):
         for word in filterList:
             if instance.get_variable('name') == word:
