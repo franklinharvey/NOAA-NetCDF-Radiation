@@ -1,5 +1,9 @@
+# NOAA-NetCDF-Radiation
+NOAA's GMD (Global Monitoring Division) has a need to convert data dating back 40+ years to a modern data-type with metadata. The GMD has chosen the NetCDF filetype as the ideal filetype. Much of the data will be released through the [ObsPack distribution](http://www.esrl.noaa.gov/gmd/ccgg/obspack/ "NOAA's ObsPack Framework").
 
-# Converting Radiation's ".dat" files to a NetCDF file
+
+
+## Converting Radiation's ".dat" files to a NetCDF file
 
 The files found in radiations FTP server (found at ftp://ftp.cmdl.noaa.gov in /g-rad/baseline/) are organized by test sites like ALT (Alert Observatory in Alert, Nunavut, Canada; a BSRN site) and BRW (Barrow Observatory in Barrow, Alaska, United States; a baseline GMD observatory). There are six total baseline observatories and four BSRN sites. Each testing location is a directory holding `.zip` files, one per month. Each `.zip` file, when unzipped, contains a single `.dat` file:
 
@@ -36,7 +40,7 @@ My second issue is exemplified with these exerpts from the `BAO` directory:
 
 The files shown are `bao_1992_01.dat` (shown first) and `bao_2016_05.dat` (shown second). The headers change. Specifically, `DIFFUSE` changes to `DIFFUSE2`. Additionally `BAO8_RAD U_GLOBAL` and `U_IR` are removed. The headers swap at the beginning of 2016.
 
-## How to convert ".dat" to ".csv"
+#### How to convert ".dat" to ".csv"
 
 In there initial state, these `.dat` files are impossible to work with. I chose to use `.csv` as an intermediate file type because nearly every language and framework has a csv reader/writer build in. If you're unfamiliar with `.csv` files, they are simply comma delimted files. Here's an example of the first eight lines of `alt_2004_09` expressed as a `.csv`.
 
@@ -56,7 +60,7 @@ python dat_convert.py *.dat
 ```
 to convert from `.dat` to `.csv`. The first converts a single file, the second converts all the `.dat` files (in your working directory). I recomend changing the `out_name` definition. M file structure is almost certainly different from yours.
 
-## Converting CSV to NetCDF
+#### Converting CSV to NetCDF
 
 A quick google search reveals that there are endless ways to do this, but I've decided to use `xarray` and `pandas` libraries. My workflow was to make a dataframe from each CSV and then use that dataframe to export out to a NetCDF file. I chose this method because of how flexible a dataframe is. For instance, a dataframe could contain all the data from a testing location (even with the changing headers) or even all the readiation data in total. Here is what I did:
 
@@ -86,7 +90,7 @@ del df1
 
 Essentially the file is seperated by commas (due to it's `.csv` nature), the date (columns 0-4) is parsed (and used as an index), and the testing location is added into a new column. This should return a .nc file.
 
-## Adding Metadata
+#### Adding Metadata
 
 The `netCDF4` library is very useful for adding metadata. Here's an example where I add the global attribute `title`:
 
@@ -109,7 +113,7 @@ You can access all the variables info by calling `foo.variables` and you can acc
 
 The action of actually adding metadata in this way is not difficult, and it's easy to run at scale (adding similar metadata to many different files). I'm just not sure what the metadata actually is.
 
-## Questions Going Forward
+#### Questions Going Forward
 
 Ideally we could add metadata at scale; there are a couple thousand files in radiation's baseline folder alone. Can we determine what metadata is exactly the same for all of them? Maybe they only differ depending on the variables that are present, or on the testing site.
 
